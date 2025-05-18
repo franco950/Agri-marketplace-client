@@ -1,9 +1,10 @@
 import { Order } from "../data";
 import { newOrder } from "../orderpage";
+const url=process.env.SERVER_URL
 export async function getOrders():Promise<Order[]>{
     try{
         
-    const query=`http://localhost:5000/order`
+    const query=`${url}/order`
 
     const response=await fetch(query,{
         method: "GET",
@@ -28,7 +29,7 @@ export async function getOrders():Promise<Order[]>{
 export async function postOrders(orders:newOrder[]):Promise<Order[]>{
     try{
         
-    const query=`http://localhost:5000/order`
+    const query=`${url}/order`
 
     const response=await fetch(query,{
         method: "POST",

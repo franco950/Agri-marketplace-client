@@ -5,7 +5,7 @@ import { Link,useNavigate } from 'react-router-dom';
  import {usertypes} from './dropdown';
  import Dropdown from './dropdown';
  import './registration.css';
-
+const url=process.env.SERVER_URL
 type Regform={
     firstname:string
     lastname:string
@@ -50,7 +50,7 @@ async function Register(formData:Regform,
     try{
         const submitdata={firstname:formData.firstname,lastname:formData.lastname,
             usertype:formData.usertype, phone:formData.phone,email:formData.email,password:formData.password}
-    const response=await fetch("http://localhost:5000/register",{
+    const response=await fetch(`${url}/register`,{
         method: "POST",
         headers: {
           "Content-Type": "application/json", 

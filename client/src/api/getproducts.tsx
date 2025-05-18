@@ -1,6 +1,8 @@
 import { searchParams } from "../homepage";
 import { Product } from "../data";
+const url=process.env.SERVER_URL
 export async function getProductData(params:searchParams):Promise<Product[]>{
+    
     try{
         const filteredParams = Object.fromEntries(
             Object.entries(params).filter(([_, value]) => value !== '')
@@ -8,11 +10,11 @@ export async function getProductData(params:searchParams):Promise<Product[]>{
         const allParamsEmpty = Object.keys(filteredParams).length === 0;
         let query;
     if (allParamsEmpty){
-        query=`http://localhost:5000/product`
+        query=`${url}/product`
     }
     else{
         const queryString = '?'+new URLSearchParams(filteredParams as Record<string, string>).toString();
-        query=`http://localhost:5000/product${queryString}`
+        query=`${url}/product${queryString}`
     }
     const response=await fetch(query,{
         method: "GET",
@@ -43,11 +45,11 @@ export async function getProductData(params:searchParams):Promise<Product[]>{
         const allParamsEmpty = Object.keys(filteredParams).length === 0;
         let query;
     if (allParamsEmpty){
-        query=`http://localhost:5000/product`
+        query=`${url}/product`
     }
     else{
         const queryString = '?'+new URLSearchParams(filteredParams as Record<string, string>).toString();
-        query=`http://localhost:5000/product${queryString}`
+        query=`${url}/product${queryString}`
     }
     const response=await fetch(query,{
         method: "GET",
@@ -73,7 +75,7 @@ export async function getProductData(params:searchParams):Promise<Product[]>{
   export async function getCartProducts(productIds:string[]):Promise<Product[]>{
     try{
         
-    const query=`http://localhost:5000/product/checkout`
+    const query=`${url}/product/checkout`
 
     
     const response=await fetch(query,{
@@ -102,7 +104,7 @@ export async function getProductData(params:searchParams):Promise<Product[]>{
     export async function patchProduct(values:any,id:string):Promise<Product>{
     try{
         
-    const query=`http://localhost:5000/product/farmer`
+    const query=`${url}/product/farmer`
 
     
     const response=await fetch(query,{

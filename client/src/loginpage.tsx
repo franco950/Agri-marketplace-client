@@ -7,7 +7,7 @@ import { Link,useNavigate } from 'react-router-dom';
 type Loginform={
     email:string
     password:string}
-
+const url=process.env.SERVER_URL
 async function login(formData:Loginform,
     setMessage: React.Dispatch<React.SetStateAction<string>>,
     setIsLoggedin: (value: boolean) => void  ,
@@ -18,7 +18,7 @@ async function login(formData:Loginform,
         setMessage('Error: Enter a valid username and password');
       return;}
     try{
-    const response=await fetch("http://localhost:5000/login",{
+    const response=await fetch(`${url}/login`,{
         method: "POST",
         headers: {
           "Content-Type": "application/json", 
