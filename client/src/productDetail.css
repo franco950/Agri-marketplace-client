@@ -1,0 +1,130 @@
+.product-detail-container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 2rem;
+    font-family: Arial, sans-serif;
+  }
+  
+  .product-detail-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 2rem;
+  }
+  
+  .product-image-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .main-image {
+    width: 100%;
+    max-height: 400px;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  }
+  
+  .thumbnail-row {
+    margin-top: 1rem;
+    display: flex;
+    gap: 10px;
+  }
+  
+  .thumbnail {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border: 2px solid #ccc;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  
+  .product-info-section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .product-name {
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 0;
+  }
+  
+  .product-price {
+    font-size: 1.5rem;
+    color: #2e7d32;
+    font-weight: bold;
+  }
+  
+  .unit {
+    font-size: 1rem;
+    color: #555;
+  }
+  
+  .product-description {
+    margin: 1rem 0;
+    color: #444;
+  }
+  
+  .product-meta p {
+    margin: 0.3rem 0;
+  }
+  
+  .farmer-info {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #eee;
+  }
+  
+  .reviews-section {
+    margin-top: 3rem;
+  }
+  
+  .reviews-section ul {
+    padding-left: 1rem;
+    list-style: square;
+  }
+  
+  .review {
+    background-color: #f9f9f9;
+    padding: 0.75rem;
+    margin: 0.5rem 0;
+    border-radius: 6px;
+  }
+  .full-container {
+    top:0;
+    
+    width: 100vw;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  .button-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 1rem;
+    width: 100%;
+  }
+  
+  .button-row button {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  
+  .buy-now {
+    background-color: #4CAF50;
+    color: white;
+  }
+  
+  .add-to-cart {
+    background-color: #bfdd37;
+    color: white;
+  }

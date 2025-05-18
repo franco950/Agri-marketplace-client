@@ -1,0 +1,161 @@
+  .registration-page {
+    background-image: url('./images/registration.jpg'); 
+    min-height: 100vh;
+    width: 100vw; 
+    display: flex;
+    background-size: cover;
+    background-position: center;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  /* Card container */
+  .login-card-registration{
+    max-width: 450px;
+    width: 100%;
+    background-color: black;
+    border: 1px solid #A8B9A3; /* Sage Gray */
+    border-radius: 12px;
+    padding: 2rem;
+    height:90%;
+    
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.05);
+    text-align: center;
+  }
+  
+  /* Titles */
+  .login-title {
+    color: white; /* Charcoal Black */
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .login-subtitle {
+    color: #A8B9A3; /* Sage Gray */
+    font-size: 1rem;
+    margin-bottom: 2rem;
+  }
+  
+  /* Form styling */
+  .login-form {
+    display: flex;
+    flex-direction: column;
+    
+  }
+  
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+  }
+  
+  .form-group label {
+    font-size: 0.9rem;
+    color: white;
+    margin-bottom: 0.3rem;
+  }
+  
+  .form-group input {
+    width: 100%;
+    padding: 0.6rem;
+    border: 1px solid #A8B9A3;
+    border-radius: 8px;
+    font-size: 1rem;
+  }
+  
+  .form-group input::placeholder {
+    color: #A8B9A3;
+  }
+  
+  /* Login button */
+  .login-button {
+    margin-top: 1rem;
+    padding: 0.8rem;
+    background-color: #43a047;
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+ /* Responsive */
+ @media (max-width: 500px) {
+  .login-card,
+  .login-card-registration {
+    padding: 1.5rem;
+  }
+}
+.login-button:hover {
+  background-color: #2e7d32; /* Darker green */
+}
+
+  
+  /* Links */
+  .login-links {
+    margin-top: 1rem;
+  }
+  
+  .login-links a {
+    color: #2C2C2C; /* Corn Yellow */
+    font-size: 0.9rem;
+    text-decoration: none;
+  }
+  
+  .login-links a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Divider */
+  .divider {
+    margin: 2rem 0;
+    height: 1px;
+    background-color: #A8B9A3;
+  }
+  
+  /* Sign up text */
+  .signup-text {
+    color: white;
+   
+    font-size: 0.9rem;
+  }
+  .error {
+    color: red;
+    padding-bottom: 10px;
+    font-size: 0.9rem;
+  }
+  
+  .signup-text a {
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+  }
+  
+  .signup-text a:hover {
+    text-decoration: underline;
+  }
+  /* Labels and inputs */
+label {
+  font-size: 0.9rem;
+  margin-bottom: 0.3rem;
+  color: white;
+}
+
+input {
+  padding: 0.5rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+input:focus {
+  outline: none;
+  border-color: #66bb6a; /* Light green */
+}
+/* Adjust small text hints */
+small, .hint {
+  font-size: 0.8rem;
+  color: #777;
+}
