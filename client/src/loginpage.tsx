@@ -7,7 +7,7 @@ import { Link,useNavigate } from 'react-router-dom';
 type Loginform={
     email:string
     password:string}
-const url=process.env.SERVER_URL
+const url=import.meta.env.VITE_SERVER_URL
 async function login(formData:Loginform,
     setMessage: React.Dispatch<React.SetStateAction<string>>,
     setIsLoggedin: (value: boolean) => void  ,

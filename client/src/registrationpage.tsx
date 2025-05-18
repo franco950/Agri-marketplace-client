@@ -5,7 +5,7 @@ import { Link,useNavigate } from 'react-router-dom';
  import {usertypes} from './dropdown';
  import Dropdown from './dropdown';
  import './registration.css';
-const url=process.env.SERVER_URL
+const url=import.meta.env.VITE_SERVER_URL
 type Regform={
     firstname:string
     lastname:string

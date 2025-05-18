@@ -1,6 +1,6 @@
 import { searchParams } from "../homepage";
 import { Product } from "../data";
-const url=process.env.SERVER_URL
+const url=import.meta.env.VITE_SERVER_URL
 export async function getProductData(params:searchParams):Promise<Product[]>{
     
     try{

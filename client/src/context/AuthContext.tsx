@@ -9,7 +9,7 @@ interface AuthContextType {
   logout: () => Promise<void>;
   setIsLoggedin: (value: boolean) => void;
 }
-
+const url=import.meta.env.VITE_SERVER_URL
 export const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
@@ -21,7 +21,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   // Fetch auth status ONCE when the app loads
   const checkAuth = async () => {
     try {
-      const response = await fetch("http://localhost:5000/auth-status", {
+      const response = await fetch(`${url}/auth-status`, {
         credentials: "include",
       });
       const data = await response.json();

@@ -3,11 +3,12 @@ import Navbar from './Navbar';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from './context/useauth';
 import { Role } from './data';
-const url=process.env.SERVER_URL
+const url=import.meta.env.VITE_SERVER_URL
 async function getHomeData(setMessage: React.Dispatch<React.SetStateAction<string>>,
   setProducts: React.Dispatch<React.SetStateAction<any>>){
    
   try{
+    console.log(url)
   const response=await fetch(`${url}/home`,{
       method: "GET",
       headers: {

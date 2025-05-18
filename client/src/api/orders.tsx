@@ -1,6 +1,6 @@
 import { Order } from "../data";
 import { newOrder } from "../orderpage";
-const url=process.env.SERVER_URL
+const url=import.meta.env.VITE_SERVER_URL
 export async function getOrders():Promise<Order[]>{
     try{
         
