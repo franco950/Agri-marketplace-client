@@ -21,6 +21,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   // Fetch auth status ONCE when the app loads
   const checkAuth = async () => {
     try {
+      await fetch("https://agri-marketplace-server-production.up.railway.app/cors-test", {
+      credentials: "include"
+      }).then(res => res.json()).then(console.log);
       const response = await fetch(`${url}/auth-status`, {
         credentials: "include",
       });
