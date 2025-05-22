@@ -16,7 +16,7 @@ function App(){
   return(<>
   <AuthProvider>
   <CartProvider>
-  <Router>
+  <Router basename="/Agri-marketplace-client">
       <Routes>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegistrationPage />} />
