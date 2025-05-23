@@ -67,6 +67,8 @@ function LoginPage(){
     return(<>
 
     <div className="login-page">
+      farmer logins:email: "farmer9@example.com", password: "hashed_password6"
+      buyer logins:email: "buyer1@example.com", password: "awesome1"
       <div className="login-card">
         <h1 className="login-title">Welcome Back</h1>
         <p className="login-subtitle">Log in to continue</p>
