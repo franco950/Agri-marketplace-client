@@ -12,6 +12,8 @@ import ProductDetail from './productdetails';
 import { CartProvider } from './cart'
 import FarmerDetailPage from './farmerproduct';
 
+
+
 function App(){
   return(<>
   <AuthProvider>
