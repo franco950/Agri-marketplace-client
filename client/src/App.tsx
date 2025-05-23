@@ -16,9 +16,11 @@ import FarmerDetailPage from './farmerproduct';
 
 function App(){
   return(<>
-  <Router basename="/Agri-marketplace-client">
+  
   <AuthProvider>
+    
   <CartProvider>
+    <Router basename="/Agri-marketplace-client">
       <Routes>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegistrationPage />} />
@@ -31,10 +33,11 @@ function App(){
         <Route path="/tracking/:id" element={<ProtectedRoute><TrackingPage /></ProtectedRoute>} />
         <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
       </Routes>
+      </Router>
 
     </CartProvider>
     </AuthProvider>
-    </Router>
+
     
   
   </>)
