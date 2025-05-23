@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as  Routes, Route } from 'react-router-dom';
 import { AuthProvider} from  "./context/AuthContext"
 import ProtectedRoute from "./ProtectedRoute";
 import LoginPage from './loginpage';
@@ -18,7 +18,7 @@ function App(){
   return(<>
   <AuthProvider>
   <CartProvider>
-  <Router basename="/Agri-marketplace-client">
+ 
       <Routes>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegistrationPage />} />
@@ -31,7 +31,7 @@ function App(){
         <Route path="/tracking/:id" element={<ProtectedRoute><TrackingPage /></ProtectedRoute>} />
         <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
       </Routes>
-    </Router>
+
     </CartProvider>
     </AuthProvider>
     
