@@ -49,6 +49,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     checkAuth(); 
+    console.log('inside useeffect')
   }, [isLoggedin]);
 
   // Logout function (updates global state)
