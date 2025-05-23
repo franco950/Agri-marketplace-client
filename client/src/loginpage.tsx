@@ -10,7 +10,7 @@ type Loginform={
 const url=import.meta.env.VITE_SERVER_URL
 async function login(formData:Loginform,
     setMessage: React.Dispatch<React.SetStateAction<string>>,
-    setIsLoggedin: (value: boolean) => void  ,
+     checkAuth: () => Promise<void>, 
     navigate: (path: string) => void){
    
 
@@ -40,7 +40,7 @@ async function login(formData:Loginform,
         throw new Error(data.message || "Login failed")};
     
     if (response.ok){
-      await setIsLoggedin(true);
+       await checkAuth();    
       setMessage(`Welcome, ${data.username || "User"}!`)
       navigate('/');
     }
@@ -57,7 +57,7 @@ function LoginPage(){
     const [formData, setFormData]=useState({email:'',password:''})
     const [message, setMessage] = useState<string>("")
     const navigate = useNavigate();
-    const { isLoggedin, setIsLoggedin } = useAuth();
+    const { isLoggedin,checkAuth} = useAuth();
     
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         
@@ -65,7 +65,7 @@ function LoginPage(){
     
     if (isLoggedin){return  <Navigate to="/" />;}
     const handleLogin = async () => {
-        await login(formData, setMessage, setIsLoggedin, navigate);
+        await login(formData, setMessage, checkAuth, navigate);
       };
     return(<>
 

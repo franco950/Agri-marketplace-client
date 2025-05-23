@@ -5,7 +5,7 @@ interface AuthContextType {
   username: string | null;
   userid:string ;
   userRole:string;
-  checkAuth: () => void;
+  checkAuth: () => Promise<void>;
   logout: () => Promise<void>;
   setIsLoggedin: (value: boolean) => void;
 }
@@ -19,7 +19,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [userRole,setRole]=useState<Role>(Role.guest);
 
   // Fetch auth status ONCE when the app loads
-  const checkAuth = async () => {
+  const checkAuth = async ():Promise<void> => {
     try {
       await fetch("https://agri-marketplace-server-production.up.railway.app/cors-test", {
       credentials: "include"
@@ -47,7 +47,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   };
 
-  useEffect(() => {
+ useEffect(() => {
     checkAuth(); 
     console.log('inside useeffect')
   }, [isLoggedin]);
