@@ -1,4 +1,4 @@
-import { BrowserRouter as  Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider} from  "./context/AuthContext"
 import ProtectedRoute from "./ProtectedRoute";
 import LoginPage from './loginpage';
@@ -16,9 +16,9 @@ import FarmerDetailPage from './farmerproduct';
 
 function App(){
   return(<>
+  <Router basename="/Agri-marketplace-client">
   <AuthProvider>
   <CartProvider>
- 
       <Routes>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegistrationPage />} />
@@ -34,6 +34,7 @@ function App(){
 
     </CartProvider>
     </AuthProvider>
+    </Router>
     
   
   </>)
