@@ -39,9 +39,12 @@ async function login(formData:Loginform,
     else if (!response.ok) { 
         throw new Error(data.message || "Login failed")};
     
-    setIsLoggedin(true);
-    setMessage(`Welcome, ${data.username || "User"}!`)
+    if (response.ok){
+      setIsLoggedin(true);
+      setMessage(`Welcome, ${data.username || "User"}!`)
     navigate('/');
+    }
+    
         }
     catch(error:any) {
         console.error("Error logging in:", error);
