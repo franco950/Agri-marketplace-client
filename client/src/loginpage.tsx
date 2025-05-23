@@ -40,9 +40,9 @@ async function login(formData:Loginform,
         throw new Error(data.message || "Login failed")};
     
     if (response.ok){
-      setIsLoggedin(true);
+      await setIsLoggedin(true);
       setMessage(`Welcome, ${data.username || "User"}!`)
-    navigate('/');
+      navigate('/');
     }
     
         }
