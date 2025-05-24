@@ -55,7 +55,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   // Logout function (updates global state)
   const logout = async () => {
     try {
-      await fetch("http://localhost:5000/logout", {
+      await fetch("https://agri-marketplace-server-production.up.railway.app/logout", {
         method: "DELETE",
         credentials: "include",
       });

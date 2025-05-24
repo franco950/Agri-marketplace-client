@@ -30,6 +30,7 @@ export async function getProductData(params:searchParams):Promise<Product[]>{
         throw new Error(error.message || "Request failed")};
     if (!allParamsEmpty && result=='all'){
         throw new Error('no products found')}
+    console.log(myproducts[0])
     return myproducts}
     
     
