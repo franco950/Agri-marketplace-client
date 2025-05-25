@@ -171,14 +171,14 @@ const ProductDetail: React.FC<Props> = ({ product }) => {
 
       <div className="reviews-section">
         <h2>Reviews</h2>
-        {product.reviews.length === 0 ? (
+        {product.review.length === 0 ? (
           <p>No reviews yet.</p>
         ) : (
           <ul>
-            {product.reviews.map((review, i) => (
+            {product.review.map((rev, i) => (
               <li key={i} className="review">
-                <strong>Rating:</strong> {review.rating}<br />
-                <em>{review.comment}</em>
+                <strong>Rating:</strong> {rev.rating}<br />
+                <em>{rev.comment}</em>
               </li>
             ))}
           </ul>
