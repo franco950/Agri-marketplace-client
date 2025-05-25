@@ -53,7 +53,7 @@ import { capitalizeFirstLetter } from "./utils/general";
               <h2>{readableProductType(category)}</h2>
               <div className="card-container">
                 {filtered.map((product) => {
-                  const imageUrl = "images/"+extractImage(product.images);
+                  const imageUrl = extractImage(product.images);
                   
                   return (
                     <div className="card" key={product.id}onClick={()=>handleSearch(product.id)}>
