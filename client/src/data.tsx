@@ -157,7 +157,7 @@ export enum DeliveryType {
     productid: string;
     productobj: Product;
     farmerid: string;
-    farmerobj: Farmer;
+    farmer: Farmer;
     deliverylatitude: number;
     deliverylongitude: number;
     deliveryoption: Delivery;
