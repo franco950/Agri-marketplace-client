@@ -84,9 +84,9 @@ const ProductDetail: React.FC<Props> = ({ product }) => {
 
           <div className="farmer-info">
             <h3>Farmer Info</h3>
-            <p>{product.farmerobj.firstname}</p>
-            <p>Email: {product.farmerobj.email}</p>
-            <p>Phone: {product.farmerobj.phone}</p>
+            <p>{product.farmer.firstname}</p>
+            <p>Email: {product.farmer.email}</p>
+            <p>Phone: {product.farmer.phone}</p>
           </div>
         </div>
       </div>

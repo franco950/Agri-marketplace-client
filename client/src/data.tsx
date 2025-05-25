@@ -20,7 +20,7 @@ export type Product = {
     farmerdelivery: boolean;
     servicedelivery: boolean;
     farmerid: string;
-    farmerobj: Farmer;
+    farmer: Farmer;
     reviews: Review[];
     orders: Order[];
   };
