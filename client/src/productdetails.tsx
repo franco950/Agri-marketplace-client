@@ -34,7 +34,7 @@ const ProductDetail: React.FC<Props> = ({ product }) => {
   const {addToCart}=useCartContext()
   const navigate=useNavigate()
   const images = Array.isArray(product.images) ? product.images : [];
-  const imageUrl = images.length > 0 ? images[0] : '/placeholder.jpg';
+  const imageUrl = images.length > 0 ? 'images/'+images[0] : 'images/placeholder.jpg';
 
   function handleOrder(productid:string,quantity:number){
     addToCart(productid,quantity)
@@ -48,7 +48,7 @@ const ProductDetail: React.FC<Props> = ({ product }) => {
           <img src={imageUrl} alt={product.name} className="main-image" />
           <div className="thumbnail-row">
             {images.slice(1, 4).map((img: string, index: number) => (
-              <img src={img} alt={`thumb-${index}`} key={index} className="thumbnail" />
+              <img src={"images/"+img} alt={`thumb-${index}`} key={index} className="thumbnail" />
             ))}
           </div>
           <div className="button-row">

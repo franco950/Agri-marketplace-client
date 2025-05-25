@@ -24,7 +24,7 @@ import { capitalizeFirstLetter } from "./utils/general";
       return '';
     }
   };
-  console.log(process.env.PUBLIC_URL)
+  
   const CategoryProductList: React.FC<Props> = ({ products }) => {
     const categories = Object.values(ProductType);
     const navigate=useNavigate()
@@ -47,13 +47,14 @@ import { capitalizeFirstLetter } from "./utils/general";
         {categories.map((category) => {
           const filtered = products.filter((p) => p.type === category);
           if (filtered.length === 0) return null;
-  
+          
           return (
             <div className="category" key={category}>
               <h2>{readableProductType(category)}</h2>
               <div className="card-container">
                 {filtered.map((product) => {
-                  const imageUrl = extractImage(product.images);
+                  const imageUrl = "images/"+extractImage(product.images);
+                  
                   return (
                     <div className="card" key={product.id}onClick={()=>handleSearch(product.id)}>
                       {imageUrl && (
