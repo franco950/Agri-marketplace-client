@@ -35,7 +35,7 @@ const getStatusIndex = (status: string) => statuses.indexOf(status);
             <p><strong>Product:</strong> {order.productobj.name}</p>
             <p><strong>Customer Type:</strong> {order.customertype}</p>
             <p><strong>Buyer:</strong> {order.user.firstname || 'N/A'}</p>
-            <p><strong>Farmer:</strong> {order.farmerobj.firstname}</p>
+            <p><strong>Farmer:</strong> {order.farmer.firstname}</p>
             <p><strong>Delivery Option:</strong> {order.deliveryoption}</p>
             <p><strong>Total Cost:</strong> KES {order.totalcost}</p>
 
