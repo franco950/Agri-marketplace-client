@@ -38,7 +38,7 @@ import { capitalizeFirstLetter } from "./utils/general";
   
     return (
       <div className="app">
-        {(isfarmer)?(<h1> My Products</h1>):(<h1>Products</h1>)}
+        {(isfarmer)?(<h1> My {process.env.PUBLIC_URL}Products</h1>):(<h1>{process.env.PUBLIC_URL}Products</h1>)}
         {(isfarmer)?(
           <Link to="/product/farmer" className="browse-link">Browse All</Link>):(
           <Link to="/product" className="browse-link">Browse All</Link>)}
