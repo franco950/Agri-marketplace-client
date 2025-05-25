@@ -58,7 +58,7 @@ import { capitalizeFirstLetter } from "./utils/general";
                     <div className="card" key={product.id}onClick={()=>handleSearch(product.id)}>
                       {imageUrl && (
                         <img
-                          src={process.env.PUBLIC_URL+imageUrl}
+                          src={imageUrl}
                           alt={product.name}
                           style={{ width: '100%',height:'50%', borderRadius: '8px' }}
                         />

@@ -45,7 +45,7 @@ const ProductDetail: React.FC<Props> = ({ product }) => {
     <div className="product-detail-container">
       <div className="product-detail-grid">
         <div className="product-image-section">
-          <img src={process.env.PUBLIC_URL+imageUrl} alt={product.name} className="main-image" />
+          <img src={imageUrl} alt={product.name} className="main-image" />
           <div className="thumbnail-row">
             {images.slice(1, 4).map((img: string, index: number) => (
               <img src={img} alt={`thumb-${index}`} key={index} className="thumbnail" />
