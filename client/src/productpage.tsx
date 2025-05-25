@@ -24,7 +24,7 @@ import { capitalizeFirstLetter } from "./utils/general";
       return '';
     }
   };
-  
+  console.log(process.env.PUBLIC_URL)
   const CategoryProductList: React.FC<Props> = ({ products }) => {
     const categories = Object.values(ProductType);
     const navigate=useNavigate()
