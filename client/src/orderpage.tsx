@@ -93,7 +93,7 @@ function OrderPage(){
             {productsWithQuantities.map(product => (
             <div key={product.id} className="checkout-item">
                 <img
-                src={Array.isArray(product.images) ? process.env.PUBLIC_URL+product.images[0] : '/placeholder.jpg'}
+                src={Array.isArray(product.images) ? product.images[0] : '/placeholder.jpg'}
                 alt={product.name}
                 className="product-thumb"
                 />
