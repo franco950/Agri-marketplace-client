@@ -21,8 +21,8 @@ export type Product = {
     servicedelivery: boolean;
     farmerid: string;
     farmer: Farmer;
-    reviews: Review[];
-    orders: Order[];
+    review: Review[];
+    order: Order[];
   };
   // Enums
 export enum DeliveryType {
@@ -112,7 +112,7 @@ export enum DeliveryType {
     password: string;
     phone: string;
     isactive: boolean;
-    products: Product[];
+    product: Product[];
     Order: Order[];
   };
   
@@ -144,7 +144,7 @@ export enum DeliveryType {
     rating: Rating;
     comment: string;
     productid: string;
-    productobj: Product;
+    product: Product;
   };
   
  
@@ -155,7 +155,7 @@ export enum DeliveryType {
     userId: string;
     user: Buyer;
     productid: string;
-    productobj: Product;
+    product: Product;
     farmerid: string;
     farmer: Farmer;
     deliverylatitude: number;

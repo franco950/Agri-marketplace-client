@@ -32,7 +32,7 @@ const getStatusIndex = (status: string) => statuses.indexOf(status);
 
         return (
           <div key={order.id} className="order-tracking">
-            <p><strong>Product:</strong> {order.productobj.name}</p>
+            <p><strong>Product:</strong> {order.product.name}</p>
             <p><strong>Customer Type:</strong> {order.customertype}</p>
             <p><strong>Buyer:</strong> {order.user.firstname || 'N/A'}</p>
             <p><strong>Farmer:</strong> {order.farmer.firstname}</p>
