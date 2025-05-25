@@ -29,7 +29,9 @@ function QuantityInput({ value, onChange }: { value: number, onChange: (val: num
   );
 }
 
+
 const ProductDetail: React.FC<Props> = ({ product }) => {
+  console.log(product)
   const [quantity, setQuantity] = useState(1);
   const {addToCart}=useCartContext()
   const navigate=useNavigate()
@@ -94,6 +96,7 @@ const ProductDetail: React.FC<Props> = ({ product }) => {
 
       <div className="reviews-section">
         <h2>Reviews</h2>
+        
         {product.reviews.length === 0 ? (
           <p>No reviews yet.</p>
         ) : (
