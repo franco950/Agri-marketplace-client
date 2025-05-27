@@ -12,8 +12,9 @@ import ProductDetail from './productdetails';
 import { CartProvider } from './cart'
 import FarmerDetailPage from './farmerproduct';
 
-console.log(import.meta.env.MODE)
+
 function App(){
+  console.log(import.meta.env.MODE)
   return(<>
   
   <AuthProvider>
