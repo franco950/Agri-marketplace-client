@@ -11,13 +11,14 @@ export default defineConfig(({ command }) => {
     return {
       plugins: [react()],
       
+      
     }
   } else {
     
     
     return {
       plugins: [react()],
-      base: "/Agri-marketplace-client/"
+      base: "./"
     }
   }
 })
