@@ -2,7 +2,17 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
 // https://vite.dev/config/
-export default defineConfig({
-  plugins: [react()],
-  base: "/Agri-marketplace-client/"
+
+export default defineConfig(({ command }) => {
+  if (command =='serve') {
+    return {
+      plugins: [react()],
+      base: "/Agri-marketplace-client/"
+    }
+  } else {
+    
+    return {
+      plugins: [react()],
+    }
+  }
 })
