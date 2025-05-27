@@ -79,11 +79,11 @@ const ProductDetail: React.FC<Props> = ({ product }) => {
     <div className="product-detail-container">
       <div className="product-detail-grid">
         <div className="product-image-section">
-          <img src={process.env.PUBLIC_URL+images[0] || '/placeholder.jpg'} alt={product.name} className="main-image" />
+          <img src={images[0] || '/placeholder.jpg'} alt={product.name} className="main-image" />
           <div className="thumbnail-row">
             {images.slice(1, 4).map((img: string, index: number) => (
               <div key={index} className="thumbnail-wrapper">
-                <img src={process.env.PUBLIC_URL+img} alt={`thumb-${index}`} className="thumbnail" />
+                <img src={img} alt={`thumb-${index}`} className="thumbnail" />
                 {isEdit && <button onClick={() => handleImageRemove(index)}>Remove</button>}
               </div>
             ))}

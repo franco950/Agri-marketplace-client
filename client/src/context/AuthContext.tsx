@@ -1,5 +1,9 @@
 import { createContext, useEffect, useState, ReactNode } from "react";
 import { Role } from "../data";
+const mode=import.meta.env.DEV
+console.log(mode)
+
+const url=import.meta.env.VITE_SERVER_URL
 interface AuthContextType {
   isLoggedin: boolean;
   username: string | null;
@@ -9,7 +13,7 @@ interface AuthContextType {
   logout: () => Promise<void>;
   setIsLoggedin: (value: boolean) => void;
 }
-const url=import.meta.env.VITE_SERVER_URL
+
 export const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
@@ -21,7 +25,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   // Fetch auth status ONCE when the app loads
   const checkAuth = async ():Promise<void> => {
     try {
-      await fetch("https://agri-marketplace-server-production.up.railway.app/session-debug", {
+      await fetch(`${url}/session-debug`, {
       credentials: "include"
       }).then(res => res.json()).then(console.log);
       const response = await fetch(`${url}/auth-status`, {
@@ -55,7 +59,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   // Logout function (updates global state)
   const logout = async () => {
     try {
-      await fetch("https://agri-marketplace-server-production.up.railway.app/logout", {
+      await fetch(`${url}/logout`, {
         method: "DELETE",
         credentials: "include",
       });

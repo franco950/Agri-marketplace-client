@@ -11,8 +11,7 @@ import ProfilePage from './profilepage';
 import ProductDetail from './productdetails';
 import { CartProvider } from './cart'
 import FarmerDetailPage from './farmerproduct';
-
-
+const base=import.meta.env.BASENAME
 
 function App(){
   return(<>
@@ -20,7 +19,7 @@ function App(){
   <AuthProvider>
     
   <CartProvider>
-    <Router basename="/Agri-marketplace-client">
+    <Router basename={base}>
       <Routes>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegistrationPage />} />
