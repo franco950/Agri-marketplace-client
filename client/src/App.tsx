@@ -20,7 +20,7 @@ function App(){
   <AuthProvider>
     
   <CartProvider>
-    <Router basename='/Agri-marketplace-client'>
+    <Router basename={base}>
       <Routes>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegistrationPage />} />
