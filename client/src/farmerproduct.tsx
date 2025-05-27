@@ -74,6 +74,8 @@ const ProductDetail: React.FC<Props> = ({ product }) => {
         console.error(err);
         alert(err);
     }}
+    console.log(images[0])
+    
 
   return (
     <div className="product-detail-container">

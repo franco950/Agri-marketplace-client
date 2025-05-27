@@ -54,6 +54,7 @@ import { capitalizeFirstLetter } from "./utils/general";
               <div className="card-container">
                 {filtered.map((product) => {
                   const imageUrl = extractImage(product.images);
+                  console.log(imageUrl)
                   
                   return (
                     <div className="card" key={product.id}onClick={()=>handleSearch(product.id)}>

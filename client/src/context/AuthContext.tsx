@@ -2,6 +2,7 @@ import { createContext, useEffect, useState, ReactNode } from "react";
 import { Role } from "../data";
 
 const url=import.meta.env.VITE_SERVER_URL
+console.log(url)
 interface AuthContextType {
   isLoggedin: boolean;
   username: string | null;
