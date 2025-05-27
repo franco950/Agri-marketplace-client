@@ -7,7 +7,7 @@ export default function Navbar() {
   let { isLoggedin, logout ,userRole} = useAuth();
   const { total } = useCartContext();
   const navigate=useNavigate()
-  console.log(userRole)
+  console.log('usertype:',userRole)
 
 
   return (

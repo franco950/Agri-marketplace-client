@@ -2,7 +2,7 @@ import { createContext, useEffect, useState, ReactNode } from "react";
 import { Role } from "../data";
 
 const url=import.meta.env.VITE_SERVER_URL
-console.log(url)
+
 interface AuthContextType {
   isLoggedin: boolean;
   username: string | null;
@@ -24,14 +24,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   // Fetch auth status ONCE when the app loads
   const checkAuth = async ():Promise<void> => {
     try {
-      await fetch(`${url}/session-debug`, {
-      credentials: "include"
-      }).then(res => res.json()).then(console.log);
+      // await fetch(`${url}/session-debug`, {
+      // credentials: "include"
+      // }).then(res => res.json());
       const response = await fetch(`${url}/auth-status`, {
         credentials: "include",
       });
       const data = await response.json();
-      console.log(data)
+
       if (response.ok) {
         setIsLoggedin(data.isLoggedin);
         setUsername(data.username);
@@ -52,7 +52,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
  useEffect(() => {
     checkAuth(); 
-    console.log('inside useeffect')
+    
   }, [isLoggedin]);
 
   // Logout function (updates global state)

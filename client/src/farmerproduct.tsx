@@ -56,7 +56,6 @@ const ProductDetail: React.FC<Props> = ({ product }) => {
 
   const handleSave = async() => {
     const changedFields = getChangedFields(product, editedProduct);
-    console.log(changedFields)
 
     if (Object.keys(changedFields).length === 0) {
         alert("No changes to save.");
@@ -74,7 +73,7 @@ const ProductDetail: React.FC<Props> = ({ product }) => {
         console.error(err);
         alert(err);
     }}
-    console.log(images[0])
+   
     
 
   return (
