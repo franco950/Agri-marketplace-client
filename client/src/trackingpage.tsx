@@ -72,9 +72,7 @@ const { data, isLoading, error } = useQuery({
 if (isLoading) return <p>Loading...</p>;
 if (error instanceof Error) return <p>{error.message}</p>;
 if (!data) return <p>No orders to display</p>;
-if ( !Array.isArray(data.orders)) {
-  return <p>Loading...</p>;
-}
+
 
 
 const { orders: myorders=[], missingreviews: missingReviewIds=[] } = data
