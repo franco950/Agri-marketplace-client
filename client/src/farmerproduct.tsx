@@ -100,7 +100,7 @@ const handleSave = async () => {
     console.error(err);
     alert("Failed to save changes");
   }
-};
+}; console.log(url + images[0] )
   return (
     <div className="product-detail-container">
       <div className="product-detail-grid">
@@ -108,6 +108,7 @@ const handleSave = async () => {
           <div className="main-image-wrapper">
             <img
               src={images[0] ? url + images[0] : url+'/uploads/placeholder.jpg'}
+             
               
               alt={product.name}
               className="main-image" 
