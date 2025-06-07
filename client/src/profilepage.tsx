@@ -129,6 +129,7 @@ const handleSave = async () => {
           deleteProfile(),
           logout()
         ]);
+        console.log(status)
         
     } catch (error:any) {
         alert(`Delete failed: ${error.message}`);

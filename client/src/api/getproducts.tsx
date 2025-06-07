@@ -117,7 +117,7 @@ export async function patchProduct(changedFields: any, id: string, files: File[]
   formData.append("changedFields", JSON.stringify(changedFields)); 
 
   // append new files
-  files.forEach((file, index) => {
+  files.forEach((file, _index) => {
     formData.append("images", file);
   });
 

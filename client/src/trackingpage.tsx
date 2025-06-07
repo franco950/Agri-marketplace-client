@@ -42,6 +42,8 @@ const { mutate: updateOrderStatus } = useMutation({
 
   // Rollback on error
   onError: (err, variables, context) => {
+    console.log(err,variables)
+
     if (context?.previousOrders) {
       queryClient.setQueryData(['orders'], context.previousOrders);
     }
