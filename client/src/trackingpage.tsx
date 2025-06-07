@@ -4,7 +4,7 @@ import { useAuth } from './context/useauth';
 import { useMutation, useQueryClient,useQuery } from '@tanstack/react-query';
 import Navbar from './Navbar';
 import { Tracking,Order,Role } from './data';
-import { useState,useEffect } from 'react';
+import { useState} from 'react';
 
 enum status{
   pending='pending',
@@ -12,8 +12,9 @@ enum status{
   all='all'
 }
 function TrackingPage(){
-  const [showReviewModal, setShowReviewModal] = useState(false);
-  const [reviewOrder, setReviewOrderId] = useState<Order>();
+
+  const [showReviewModal, setShowReviewModal] = useState(true);
+
   const [rating, setRating] = useState<number>(0);
   const [comment, setComment] = useState('');
   const [statusfilter, setStatus]=useState<status>(status.pending)
@@ -29,25 +30,30 @@ const { mutate: updateOrderStatus } = useMutation({
   onMutate: async ({ orderId, newStatus }) => {
     await queryClient.cancelQueries({ queryKey: ['orders'] });
 
-    const previousOrders = queryClient.getQueryData<Order[]>(['orders']);
+    const previousData= queryClient.getQueryData<{ orders: Order[]; missingreviews: string[] }>(['orders']);
     // Optimistic update
-    queryClient.setQueryData<Order[]>(['orders'], (oldOrders) =>
-      oldOrders?.map((order) =>
-        order.id === orderId ? { ...order, tracking: newStatus } : order
-      ) || []
-    );
+ queryClient.setQueryData(['orders'], (oldData: any) => {
+    if (!oldData || !Array.isArray(oldData.orders)) return oldData;
 
-    return { previousOrders };
-  },
+    return {
+      ...oldData,
+      orders: oldData.orders.map((order: Order) =>
+        order.id === orderId ? { ...order, tracking: newStatus } : order
+      ),
+    };
+  });
+
+  return { previousData };
+},
 
   // Rollback on error
-  onError: (err, variables, context) => {
-    console.log(err,variables)
+onError: (err, variables, context) => {
+  console.log(err,variables)
+  if (context?.previousData) {
+    queryClient.setQueryData(['orders'], context.previousData);
+  }
+},
 
-    if (context?.previousOrders) {
-      queryClient.setQueryData(['orders'], context.previousOrders);
-    }
-  },
   onSuccess: (_, ) => {
   queryClient.invalidateQueries({ queryKey: ['orders'] });
 
@@ -57,47 +63,47 @@ const { mutate: updateOrderStatus } = useMutation({
 });
 
 
-  const {
-        data: orders,
-        isLoading,
-        error,
-      } = useQuery({
-        queryKey: ['orders'],
-        queryFn: () => getOrders(),
-        staleTime: 1000 * 10 ,
-      });
-    
-    if (isLoading) return <p>Loading...</p>;
-    if (error instanceof Error) return <p>{error.message}</p>;
-    if (!orders) return <p>No orders to display</p>;
+const { data, isLoading, error } = useQuery({
+  queryKey: ['orders'],
+  queryFn: () => getOrders(),
+  staleTime: 1000 * 10,
+});
+
+if (isLoading) return <p>Loading...</p>;
+if (error instanceof Error) return <p>{error.message}</p>;
+if (!data) return <p>No orders to display</p>;
+if ( !Array.isArray(data.orders)) {
+  return <p>Loading...</p>;
+}
+
+
+const { orders: myorders=[], missingreviews: missingReviewIds=[] } = data
 
     const statuses: Tracking[] = [
       Tracking.PACKING,
       Tracking.PACKED,
-      Tracking.ENROUTE,
+      Tracking.ENROUTE, 
       Tracking.DELIVERED,
     ];
-    const [myorders, missingReviewIds] = Array.isArray(orders) && orders.length === 2
-  ? orders
-  : [[], []];
 
   let values:Order[];
   const getStatusIndex = (status:Tracking) => statuses.indexOf(status);
-  const pendingorders = myorders.filter((order) => order.tracking !== Tracking.DELIVERED);
-  const delivered = myorders.filter((order) => order.tracking === Tracking.DELIVERED);
+
+
+const pendingorders = Array.isArray(myorders)
+  ? myorders.filter((order) => order.tracking !== Tracking.DELIVERED)
+  : [];
+const delivered = Array.isArray(myorders)
+  ? myorders.filter((order) => order.tracking === Tracking.DELIVERED)
+  : [];
+
   if(statusfilter=='pending'){values=pendingorders}
   else if (statusfilter=='delivered'){values=delivered}
   else {values=myorders}
- 
-useEffect(() => {
-  if (!isfarmer && delivered.length > 0 && !showReviewModal && missingReviewIds.length > 0) {
-    const orderToReview = delivered.find(order => missingReviewIds.includes(order.id));
-    if (orderToReview) {
-      setReviewOrderId(orderToReview);
-      setShowReviewModal(true);
-    }
-  }
-}, [isfarmer, delivered, showReviewModal, missingReviewIds]);
+    const orderToReview = delivered.find(order =>
+    missingReviewIds.includes(order.id)
+  );
+  
 
 
   function handlefilter(status:status){
@@ -107,20 +113,21 @@ function handleStatusChange(orderId: string, newStatus: Tracking) {
   updateOrderStatus({ orderId, newStatus });
 }
 async function handleSubmitReview() {
-  if (!reviewOrder || rating === 0) return;
+  if (!orderToReview || rating === 0) return;
 
   try {
     await sendReview({
-      orderId: reviewOrder.id,
+      orderId:orderToReview.id,
       rating,
       comment,
     });
 
-    setShowReviewModal(false);
+    
     setRating(0);
     setComment('');
     alert('success! review submitted successfully')
     queryClient.invalidateQueries({ queryKey: ['orders'] });
+    setShowReviewModal(false);
   } catch (err) {
     console.error('Failed to submit review:', err);
   }
@@ -194,14 +201,14 @@ async function handleSubmitReview() {
         );
       })}
     </div>
-    {!isfarmer && showReviewModal&&reviewOrder	 && (
+    {!isfarmer&&orderToReview	&&showReviewModal&& (
   <div className="modal-backdrop">
     <div className="modal">
       <h3>Please take some time to review the product</h3>
-      <p>Product: {reviewOrder.product.name}</p>
-      <p>Quantity: {reviewOrder.totalcost/reviewOrder.product.priceperunit} {reviewOrder.product.unit}</p>
-      <p>Ordered on: {new Date(reviewOrder.createdAt).toDateString()}</p>
-      <p>order id: {reviewOrder.id}</p>
+      <p>Product: {orderToReview.product.name}</p>
+      <p>Quantity: {orderToReview.totalcost/orderToReview.product.priceperunit} {orderToReview.product.unit}</p>
+      <p>Ordered on: {new Date(orderToReview.createdAt).toDateString()}</p>
+      <p>order id: {orderToReview.id}</p>
 
       <div className="stars">
         Rate out of 5{[1, 2, 3, 4, 5].map((n) => (
@@ -222,7 +229,7 @@ async function handleSubmitReview() {
       />
 
       <div className="modal-buttons">
-        <button className="submit-button" onClick={handleSubmitReview}>Submit</button>
+        <button className="submit-button" onClick={handleSubmitReview} disabled={rating === 0}>Submit</button>
         <button className="cancel-button" onClick={() => setShowReviewModal(false)}>Review Later</button>
       </div>
     </div>

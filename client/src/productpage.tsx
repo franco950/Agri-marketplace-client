@@ -75,7 +75,7 @@ const url=import.meta.env.VITE_SERVER_URL
               <div className="card-container">
                 {filtered.map((product) => {
                   const imageUrl = url+extractImage(product.images);
-                  console.log(imageUrl)
+             
                   return (
                     <div className="card" key={product.id}onClick={()=>handleSearch(product.id)}>
                       {imageUrl && (
@@ -113,9 +113,6 @@ const url=import.meta.env.VITE_SERVER_URL
     const farmerid=searchParams.get('farmerid')||'';
     const queryParams = { name, type, location,id,farmerid };
    
-    
-   
-  
     const {
       data: reply,
       isLoading,
