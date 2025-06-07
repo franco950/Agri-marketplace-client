@@ -44,7 +44,7 @@ export function useCart(userId: string) {
     setTotal(totalquantity)
     localStorage.setItem('cart', JSON.stringify(cart));
 
-  }, [cart]);
+  }, [cart,userId]);
 
     // Add or update product in cart
   const addToCart = (productid: string, quantity: number) => {

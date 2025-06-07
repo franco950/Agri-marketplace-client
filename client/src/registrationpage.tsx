@@ -45,7 +45,7 @@ async function Register(formData:Regform,
     else if (formData.password !== formData.confirmation){
         setMessage('Error: Passwords do not match');
         return
-    }console.log(formData.usertype)
+    }
     
     try{
         const submitdata={firstname:formData.firstname,lastname:formData.lastname,

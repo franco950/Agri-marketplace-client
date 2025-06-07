@@ -1,17 +1,19 @@
 import { Link, useNavigate,useSearchParams } from "react-router-dom";
 import { getProductData } from "./api/getproducts";
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { Product,ProductType,Role } from "./data";
 import "./products.css"
 import Navbar from "./Navbar";
-import React from 'react';
+import React, { useState } from 'react';
 import { useAuth } from "./context/useauth";
 import { capitalizeFirstLetter } from "./utils/general";
-  
+const url=import.meta.env.VITE_SERVER_URL
+
   type Props = {
-    products: Product[];
+    products: Product[],
+    result:string
   };
-  
+
   const readableProductType = (type: ProductType): string =>
     type.charAt(0) + type.slice(1).toLowerCase();
   
@@ -25,36 +27,54 @@ import { capitalizeFirstLetter } from "./utils/general";
     }
   };
   
-  const CategoryProductList: React.FC<Props> = ({ products }) => {
+  const CategoryProductList: React.FC<Props> = ({ products,result }) => {
     const categories = Object.values(ProductType);
     const navigate=useNavigate()
     const{userRole}=useAuth()
     const isfarmer=userRole===Role.farmer
+    const[all,setAll]=useState<Boolean>(false)
+    
+    const queryclient=useQueryClient()
+
     function handleSearch(id:string){
       const params={id:id}
       const queryString = new URLSearchParams(params as Record<string, string>).toString();
       if (isfarmer){navigate(`/productdetails/farmer?${queryString}`)}else{
       navigate(`/productdetails?${queryString}`)}}
+    function handleAdd(){navigate(`/product/farmer/new`) }
+
+      if (isfarmer && result=='emptyfarmer'&& all==false){
+              return(<>You do not have any products.
+                <button onClick={()=>setAll(true)}>Browse all products</button>
+                <button onClick={()=>handleAdd()}>Add a product</button></>
+              )
+            }
+      if (isfarmer && result=='all'){
+      queryclient.invalidateQueries({ queryKey: ['reply'] });}
   
     return (
       <div className="app">
-        {(isfarmer)?(<h1> My {}Products</h1>):(<h1>{}Products</h1>)}
-        {(isfarmer)?(
-          <Link to="/product/farmer" className="browse-link">Browse All</Link>):(
+        {(isfarmer && result=='search')?(<h1> My Products</h1>):(<h1>Products</h1>)}
+        {(isfarmer && result=='search')?(<>
+        
+          
+          <Link to="/product" className="browse-link">Back to marketplace</Link></>):(
           <Link to="/product" className="browse-link">Browse All</Link>)}
+          {isfarmer &&<button onClick={()=>handleAdd()}>Add a product</button>}
 
   
         {categories.map((category) => {
           const filtered = products.filter((p) => p.type === category);
-          if (filtered.length === 0) return null;
+          if (filtered.length === 0 ) {
+            return null
+          }; 
           
           return (
             <div className="category" key={category}>
               <h2>{readableProductType(category)}</h2>
               <div className="card-container">
                 {filtered.map((product) => {
-                  const imageUrl = extractImage(product.images);
-                  console.log(imageUrl)
+                  const imageUrl = url+extractImage(product.images);
                   
                   return (
                     <div className="card" key={product.id}onClick={()=>handleSearch(product.id)}>
@@ -90,28 +110,31 @@ import { capitalizeFirstLetter } from "./utils/general";
     const name = capitalizeFirstLetter(uppername);
     const location = searchParams.get('location') || '';
     const id = searchParams.get('id') || '';
-    const queryParams = { name, type, location,id };
+    const farmerid=searchParams.get('farmerid')||'';
+    const queryParams = { name, type, location,id,farmerid };
+   
     
    
   
     const {
-      data: products,
+      data: reply,
       isLoading,
       error,
     } = useQuery({
-      queryKey: ['products', queryParams],
+      queryKey: ['reply', queryParams],
       queryFn: () => getProductData(queryParams),
       staleTime: 1000 * 60 * 5,
     });
   
     if (isLoading) return <p>Loading...</p>;
     if (error instanceof Error) return <p>{error.message}</p>;
-    if (!products) return <p>No products to display</p>;
+    if (!reply) return <p>No products to display</p>;
     
     return (
       <div className="full-container">
         <Navbar />
-        <CategoryProductList products={products} />
+        <CategoryProductList products={reply.myproducts}
+                            result={reply.result} />
       </div>
     );
   }

@@ -1,30 +1,31 @@
 import { useAuth } from "./context/useauth";
 import { useCartContext } from "./cart";
 import { useNavigate, Link} from "react-router-dom";
-
+const url=import.meta.env.VITE_SERVER_URL
 export default function Navbar() {
-  let { isLoggedin, logout ,userRole} = useAuth();
+  let { isLoggedin, logout ,username, userRole} = useAuth();
   const { total } = useCartContext();
   const navigate=useNavigate()
-  console.log('usertype:',userRole)
-
-
   return (
     <nav className="navbar">
       <li className="logo">AgriGo</li>
+      
       <ul className="nav-links">
-        <li><Link to="/">Home</Link></li>
-        <li><a href="/about">About</a></li>
-        <li><a href="/contact">Contact</a></li>
+        <li className="text-role" >{username}: {userRole&& userRole}</li>
+        <li className="text"><Link to="/">Home</Link></li>
+      
+       
       {(userRole=='farmer')?(
-        <li><Link to="/product/farmer">my products</Link></li>
+        <li className="text" ><Link to="/product/farmer?farmerid=1">my products</Link></li>
         
       ):('')}
       {isLoggedin ? (
         <>
-        <li><button className="cart-logo" onClick={()=>navigate(`/order/1`)}>{total}</button></li>
-        <li><Link to="/profile">profile</Link></li>
-        <Link to='/tracking/1'>my Orders</Link>
+        {userRole!=='farmer'&&<li><div className="image-container"onClick={()=>navigate(`/order/1`)}>
+        <div className="cart-quantity">{total}</div>
+        <img className='cart-image'src={url+'/uploads/cart.png'}></img></div></li>}
+        <li className="text"><Link to="/profile">Profile</Link></li>
+        <li className="text"><Link to='/tracking/1'>Orders</Link></li>
         <li><button onClick={logout}>Logout</button></li></>
         
       ) : (

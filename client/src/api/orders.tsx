@@ -1,7 +1,7 @@
-import { Order } from "../data";
+import { Order,Tracking } from "../data";
 import { newOrder } from "../orderpage";
 const url=import.meta.env.VITE_SERVER_URL
-export async function getOrders():Promise<Order[]>{
+export async function getOrders():Promise<[Order[], string[]]>{
     try{
         
     const query=`${url}/order`
@@ -20,7 +20,7 @@ export async function getOrders():Promise<Order[]>{
         const error = await response.json();
         throw new Error(error.message || "Request failed")};
    
-    return myorders||[]}
+    return [myorders.myorders,myorders.missingreviews]}
 
     catch(error:any) {
         console.error("Error retrieving orders:", error);
@@ -28,9 +28,7 @@ export async function getOrders():Promise<Order[]>{
   }
 export async function postOrders(orders:newOrder[]):Promise<Order[]>{
     try{
-        
     const query=`${url}/order`
-
     const response=await fetch(query,{
         method: "POST",
         headers: {
@@ -52,3 +50,55 @@ export async function postOrders(orders:newOrder[]):Promise<Order[]>{
         console.error("Error retrieving orders:", error);
         throw new Error(error)} 
   }
+
+
+export async function patchOrder(orderId: string, newStatus: Tracking) {
+    try{
+        const query=`${url}/order/farmer`
+        const response = await fetch(query, {
+            method: 'PATCH',
+            headers: {
+            'Content-Type': 'application/json',
+            },
+            credentials: "include",
+            body: JSON.stringify({orderid:orderId,tracking: newStatus }),
+        });
+        const reply= await response.json();
+
+    if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.message||'Failed to send review');}
+   
+    return reply}
+        catch(error:any) {
+        console.error("Error sending review:", error);
+        throw new Error(error)} }
+
+export async function sendReview({
+    orderId,
+    rating,
+    comment,
+    }: {
+    orderId: string;
+    rating: number;
+    comment: string;
+    })  {
+    try{
+        const query=`${url}/product/review`
+        const response = await fetch(query, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: "include",
+            body: JSON.stringify({ orderId, rating, comment }),
+        });
+        const reply= await response.json();
+
+    if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.message||'Failed to send review');}
+   
+    return reply}
+        catch(error:any) {
+        console.error("Error sending review:", error);
+        throw new Error(error)} }
+

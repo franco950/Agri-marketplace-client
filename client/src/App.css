@@ -1,4 +1,8 @@
-/* Reset */
+.mainbody{
+  top:0;
+  width:100vw;
+  
+}
 * {
   margin: 0;
   padding: 0;
@@ -8,7 +12,7 @@
 }
 
 .hero {
-  background-image: url('./images/homepage.png'); /* adjust path as needed */
+  background-image: url('./images/homepage.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -72,7 +76,14 @@
   gap: 28px;
 
 }
-
+.text{
+  padding-top: 1.5%;
+}
+.text-role{
+  padding-top: 0.8%;
+  position:absolute;
+  left: 12%;
+}
 .nav-links a {
   color: white;
   text-decoration: none;
@@ -162,11 +173,20 @@
 .search-btn:hover {
   background-color: #b58b00;
 }
-.cart-logo{
-  color: wheat;
-  background-image: url('./shopping.png');
-  background-size:25px; 
-  background-color: rgba(94, 60, 30, 0.9);;
-  background-repeat: no-repeat;
+
+
+.cart-image{
   
+  width: 28px;
+  height: 23px;
+}
+.cart-quantity{
+  top:0;
+  height: 17px;
+  padding-left: 12px;
+
+}
+.image-container{
+  width: 25px;
+  height: 35px;
 }

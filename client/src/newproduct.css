@@ -1,0 +1,50 @@
+.full-page{
+    width:100vw
+}
+.product-form {
+  max-width: 500px;
+  margin: auto;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: #fafafa;
+}
+.product-form h2 {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.product-form label {
+  display: block;
+  margin-bottom: 1rem;
+  color: black;
+}
+
+.product-form input,
+.product-form select,
+.product-form textarea {
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 0.2rem;
+  border-radius: 4px;
+  border: 1px solid #aaa;
+}
+
+.product-form .error {
+  color: red;
+  font-size: 0.85rem;
+}
+
+.product-form button {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: green;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.product-form button:hover {
+  background-color: darkgreen;
+}

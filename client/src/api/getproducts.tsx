@@ -1,7 +1,11 @@
 import { searchParams } from "../homepage";
 import { Product } from "../data";
 const url=import.meta.env.VITE_SERVER_URL
-export async function getProductData(params:searchParams):Promise<Product[]>{
+type reply={
+    myproducts:Product[],
+    result:string
+}
+export async function getProductData(params:searchParams):Promise<reply>{
     
     try{
         const filteredParams = Object.fromEntries(
@@ -11,10 +15,12 @@ export async function getProductData(params:searchParams):Promise<Product[]>{
         let query;
     if (allParamsEmpty){
         query=`${url}/product`
+        
     }
     else{
         const queryString = '?'+new URLSearchParams(filteredParams as Record<string, string>).toString();
         query=`${url}/product${queryString}`
+
     }
     const response=await fetch(query,{
         method: "GET",
@@ -24,20 +30,21 @@ export async function getProductData(params:searchParams):Promise<Product[]>{
         credentials: "include",
     
     })
-    const {myproducts,result} = await response.json(); 
+    const reply = await response.json(); 
     if (!response.ok) { 
         const error = await response.json();
         throw new Error(error.message || "Request failed")};
-    if (!allParamsEmpty && result=='all'){
+    if (!allParamsEmpty && reply.result=='all'){
         throw new Error('no products found')}
     
-    return myproducts}
+    return reply}
     
     
     catch(error:any) {
         console.error("Error retrieving products:", error);
         throw new Error(error)} 
   }
+
   export async function getSingleProduct(params:searchParams):Promise<Product>{
     try{
         const filteredParams = Object.fromEntries(
@@ -73,6 +80,7 @@ export async function getProductData(params:searchParams):Promise<Product[]>{
         console.error("Error retrieving products:", error);
         throw new Error(error)} 
   }
+  
   export async function getCartProducts(productIds:string[]):Promise<Product[]>{
     try{
         
@@ -102,30 +110,28 @@ export async function getProductData(params:searchParams):Promise<Product[]>{
         throw new Error(error)} 
   }
 
-    export async function patchProduct(values:any,id:string):Promise<Product>{
-    try{
-        
-    const query=`${url}/product/farmer`
+export async function patchProduct(changedFields: any, id: string, files: File[]): Promise<Product> {
+  const formData = new FormData();
 
-    
-    const response=await fetch(query,{
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json", 
-        },
-        credentials: "include",
-        body: JSON.stringify({values,id})
-    
-    
-    })
-    const myproduct = await response.json(); 
-    if (!response.ok) { 
-        const error = await response.json();
-        throw new Error(error.message || "Request failed")};
-   
-    return myproduct}
+  formData.append("id", id);
+  formData.append("changedFields", JSON.stringify(changedFields)); 
 
-    catch(error:any) {
-        console.error("Error updating product:", error);
-        throw new Error(error)} 
+  // append new files
+  files.forEach((file, index) => {
+    formData.append("images", file);
+  });
+
+  const response = await fetch(`${url}/product/farmer`, {
+    method: "PATCH",
+    credentials: "include",
+    body: formData,
+  });
+
+  const myproduct = await response.json();
+
+  if (!response.ok) {
+    throw new Error(myproduct.message || "Request failed");
   }
+
+  return myproduct;
+}

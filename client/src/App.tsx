@@ -11,10 +11,10 @@ import ProfilePage from './profilepage';
 import ProductDetail from './productdetails';
 import { CartProvider } from './cart'
 import FarmerDetailPage from './farmerproduct';
-
+import NewProductPage from './newproductpage';
 
 function App(){
-  console.log(import.meta.env.MODE)
+  
   return(<>
   
   <AuthProvider>
@@ -29,6 +29,7 @@ function App(){
          <Route path="/product/farmer" element={<ProtectedRoute><ProductPage /></ProtectedRoute>} />
         <Route path="/productdetails" element={<ProtectedRoute><ProductDetail /></ProtectedRoute>} />
         <Route path="/productdetails/farmer" element={<ProtectedRoute><FarmerDetailPage /></ProtectedRoute>} />
+        <Route path="/product/farmer/new" element={<ProtectedRoute><NewProductPage /></ProtectedRoute>} />
         <Route path="/order/:id" element={<ProtectedRoute><OrderPage /></ProtectedRoute>} />
         <Route path="/tracking/:id" element={<ProtectedRoute><TrackingPage /></ProtectedRoute>} />
         <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />

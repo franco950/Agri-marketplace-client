@@ -1,5 +1,6 @@
 import { createContext, useEffect, useState, ReactNode } from "react";
 import { Role } from "../data";
+import { useQueryClient } from "@tanstack/react-query";
 
 const url=import.meta.env.VITE_SERVER_URL
 
@@ -20,6 +21,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [username, setUsername] = useState<string | null>(null);
   const [userid,setID]=useState<string>('guest');
   const [userRole,setRole]=useState<Role>(Role.guest);
+  const queryclient=useQueryClient()
 
   // Fetch auth status ONCE when the app loads
   const checkAuth = async ():Promise<void> => {
@@ -66,6 +68,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setUsername(null);
       setID('guest')
       setRole(Role.guest)
+      queryclient.invalidateQueries()
     } catch (error) {
       console.error("Logout failed:", error);
     }

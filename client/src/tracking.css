@@ -1,8 +1,23 @@
+.full-container{
+  min-height: 100vh;
+}
+.button-group{
+  margin: 10px;
+}
+.filter-button  {
+    background-color: white;
+    color:black;
+    border-color: black;
+}
+.filter-button:focus {     
+    background-color:black;
+    color:white;    
+}
 .tracking-page {
   padding: 2rem;
   font-family: Arial, sans-serif;
   width:100vw;
-  margin-top: 90px;
+  margin-top: 20px;
   margin-bottom: 100px;
   padding-left: 30px;
   padding-right: 30px;
@@ -60,4 +75,112 @@
   color: #555;
   position: relative;
   margin-bottom: 3px;
+}
+
+.progress-button-container {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0;
+  gap: 10px;
+}
+
+.progress-button {
+  flex: 1;
+  text-align: center;
+  padding: 8px;
+  border-radius: 5px;
+  border: none;
+  font-weight: bold;
+}
+
+.progress-button.completed {
+  background-color: #28a745; 
+  color: white;
+}
+
+.progress-button.current {
+  background-color: #063c75;
+  color: white;
+}
+
+.progress-button:not(.completed):not(.current) {
+  background-color: #e0e0e0;
+  color: black;
+}
+
+.progress-label.current-status {
+  color: #023d7c;
+  font-weight: bold;
+}
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.modal {
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+}
+
+.stars {
+  font-size: 1.5rem;
+  margin: 1rem 0;
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.star {
+  cursor: pointer;
+  color: gray;
+}
+
+.star.active {
+  color: gold;
+}
+
+textarea {
+  width: 100%;
+  min-height: 80px;
+  margin-top: 1rem;
+  padding: 0.5rem;
+  font-size: 1rem;
+  resize: vertical;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+
+.submit-button,
+.cancel-button {
+  padding: 0.5rem 1rem;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.submit-button {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.cancel-button {
+  background-color: #f44336;
+  color: white;
 }

@@ -8,6 +8,7 @@ import { getSingleProduct } from './api/getproducts';
 import { capitalizeFirstLetter } from './utils/general';
 import Navbar from './Navbar';
 import { useCartContext } from './cart';
+const url=import.meta.env.VITE_SERVER_URL
 
 type Props = {
   product: Product;
@@ -31,12 +32,12 @@ function QuantityInput({ value, onChange }: { value: number, onChange: (val: num
 
 
 const ProductDetail: React.FC<Props> = ({ product }) => {
-  console.log(product)
+  
   const [quantity, setQuantity] = useState(1);
   const {addToCart}=useCartContext()
   const navigate=useNavigate()
   const images = Array.isArray(product.images) ? product.images : [];
-  const imageUrl = images.length > 0 ? images[0] : '/placeholder.jpg';
+  const imageUrl = images.length > 0 ? url+images[0] : '/placeholder.jpg';
 
   function handleOrder(productid:string,quantity:number){
     addToCart(productid,quantity)
@@ -50,7 +51,7 @@ const ProductDetail: React.FC<Props> = ({ product }) => {
           <img src={imageUrl} alt={product.name} className="main-image" />
           <div className="thumbnail-row">
             {images.slice(1, 4).map((img: string, index: number) => (
-              <img src={img} alt={`thumb-${index}`} key={index} className="thumbnail" />
+              <img src={url+img} alt={`thumb-${index}`} key={index} className="thumbnail" />
             ))}
           </div>
           <div className="button-row">
@@ -115,14 +116,13 @@ const ProductDetail: React.FC<Props> = ({ product }) => {
 };
 
 export default function ProductDetailPage() {
-     const [searchParams] = useSearchParams();
-        const type = searchParams.get('type') || '';
-        const uppername = searchParams.get('name') || '';
-        const name = capitalizeFirstLetter(uppername);
-        const location = searchParams.get('location') || '';
-        const id = searchParams.get('id') || '';
-        const queryParams = { name, type, location,id };
-        
+    const [searchParams] = useSearchParams();
+    const type = searchParams.get('type') || '';
+    const uppername = searchParams.get('name') || '';
+    const name = capitalizeFirstLetter(uppername);
+    const location = searchParams.get('location') || '';
+    const id = searchParams.get('id') || '';
+    const queryParams = { name, type, location,id };
   
     const { data: product, isLoading, error } = useQuery({
       queryKey: ['product', id],
@@ -132,13 +132,12 @@ export default function ProductDetailPage() {
   
     if (isLoading) return <p>Loading...</p>;
     if (error instanceof Error) return <p>{error.message}</p>;
-    
-    if (!product) return <p>Product not found.</p>;
+    if (!product) return <p>Products not found.</p>;
   
     return (<div className="full-container">
     <Navbar/>
     <ProductDetail product={product} />
-    </div>)
+    </div>)}
     
-  }
+  
 
