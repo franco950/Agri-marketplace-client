@@ -87,7 +87,7 @@ const handleSubmit = async (e: React.FormEvent) => {
     postProduct(formData)
     alert("Product submitted successfully!");
     setForm(initialState)
-    navigate(`/product/farmer?farmerid=1`)
+    navigate(`/`)
     } 
 
   } catch (error) {
