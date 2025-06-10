@@ -4,6 +4,10 @@ import Navbar from './Navbar';
 import './newproduct.css'
 import { postProduct } from './api/postproducts';
 import { useNavigate } from 'react-router-dom';
+import { useQueryClient } from "@tanstack/react-query";
+
+
+
 // const locations = [
 //   'Nairobi', 'Mombasa', 'Kisumu', 'Nakuru', 'Eldoret',
 //   'Thika', 'Meru', 'Kitale', 'Nyeri', 'Machakos'
@@ -27,6 +31,7 @@ const initialState: Productform = {
 };
 
 const ProductForm: React.FC = () => {
+  const queryClient = useQueryClient();
   const [form, setForm] = useState<Productform>(initialState);
   const [errors, setErrors] = useState<{ [K in keyof Productform]?: string }>({});
   const [imageFile, setImageFile] = useState<File | null>(null);
@@ -87,7 +92,9 @@ const handleSubmit = async (e: React.FormEvent) => {
     postProduct(formData)
     alert("Product submitted successfully!");
     setForm(initialState)
-    navigate(`/`)
+    queryClient.invalidateQueries({ queryKey: ['reply'] });
+    navigate(-1)
+    
     } 
 
   } catch (error) {
